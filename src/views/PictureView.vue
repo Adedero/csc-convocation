@@ -186,7 +186,7 @@ onMounted(() => {
             <p v-if="options.showUniName">Federal university of technology, Owerri</p>
             <p>
               <span v-if="options.showHonours">{{ degree }}</span>
-              <span v-if="options.showCGPA"> ({{ user.cgpa }}/5.0)</span>
+              <span v-if="options.showCGPA"> ({{ Number.isInteger(user.cgpa) ? `${user.cgpa}.0` : user.cgpa }}/5.0)</span>
             </p>
             <p class="italic">bachelor of technology
               (B.<span class="lowercase"><span class="uppercase">T</span>ech.</span>)
