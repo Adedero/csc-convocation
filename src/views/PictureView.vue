@@ -171,7 +171,7 @@ onMounted(() => {
             <span v-if="user.displayCGPA"> ({{ user.cgpa }}/5.0)</span>
           </p>
           <p class="italic">bachelor of technology
-            (B.<span class="lowercase"><span class="uppercase">T</span>ech</span>).
+            (B.<span class="lowercase"><span class="uppercase">T</span>ech.</span>)
           </p>
           <p class="italic">Class of 2022/2023</p>
         </div>
