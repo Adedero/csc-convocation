@@ -213,12 +213,7 @@ onMounted(() => {
           <label for="text-font-size">Other text font size: {{ options.textFontSize }}px</label>
           <input v-model="options.textFontSize" type="range" min="5" max="36"  id="text-font-size">
         </div>
-
-        <div class="flex items-center gap-2">
-          <input v-model="options.showFutoLogo" type="checkbox" id="show-futo-logo">
-          <label for="show-futo-logo">Show FUTO logo</label>
-        </div>
-
+        
         <div class="flex items-center gap-2">
           <input v-model="options.showFutoLogo" type="checkbox" id="show-futo-logo">
           <label for="show-futo-logo">Show FUTO logo</label>
