@@ -6,8 +6,7 @@ const router = useRouter();
 
 const user = ref({
   name: "",
-  cgpa: null,
-  displayCGPA: true
+  cgpa: null
 });
 
 const disabled = computed(() => {
@@ -40,11 +39,6 @@ const handleClick = () => {
           <input v-model="user.cgpa" id="cgpa" type="number" :min="0" :max="5" class="w-full">/
           <input type="number" value="5.0" disabled class="w-full">
         </div>
-      </div>
-
-      <div class="flex items-center gap-1">
-        <input v-model="user.displayCGPA" id="show-cgpa" type="checkbox" class="w-fit">
-        <label for="show-cgpa">Display my CGPA on the photo.</label>
       </div>
 
       <button @click="handleClick" type="button" :disabled

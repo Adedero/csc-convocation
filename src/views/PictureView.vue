@@ -2,6 +2,7 @@
 import { computed, onMounted, ref } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
 import futo_logo from '@/assets/futo-logo.png';
+import titans_logo from '@/assets/logo.png';
 //import html2canvas from "html2canvas";
 import * as htmlToImage from 'html-to-image';
 
@@ -10,6 +11,14 @@ const user = ref(null);
 
 const image = ref();
 const el = ref();
+
+const options = ref({
+  showFutoLogo: true,
+  showTitansLogo: true,
+  showCGPA: true,
+  showUniName: false,
+  showDegree: true
+});
 
 
 const degree = computed(() => {
@@ -101,7 +110,7 @@ onMounted(() => {
   } catch (error) {
     console.log(error);
     router.push("/");
-    return; 
+    return;
   }
 });
 </script>
@@ -115,7 +124,7 @@ onMounted(() => {
 
     <div class="grid gap-1">
       <label for="picture">Upload your photo</label>
-      <input @input="onInput" id="picture" type="file" accept="image/*" />
+      <input @input="onInput" id="picture" type="file" accept="image/*"  class="w-full"/>
       <small v-if="err" class="text-sm text-red-500">
         File must be an image.
       </small>
@@ -149,26 +158,31 @@ onMounted(() => {
     </div>
 
     <div id="el" ref="el" v-show="fileUrl" class="relative">
-      <div class="absolute top-5 left-5 w-[3.2rem]">
-        <img :src="futo_logo" alt="FUTO" class="w-full">
+      <div class="absolute top-5 left-5 w-[3rem]">
+        <img v-if="options.showFutoLogo" :src="futo_logo" alt="FUTO" class="w-full">
+      </div>
+
+      <div class="absolute top-5 right-5 w-8 h-12">
+        <img v-if="options.showTitansLogo" :src="titans_logo" alt="Titans" class="w-full h-full">
       </div>
 
       <img ref="image" :src="fileUrl" :alt="user.name" class="w-full">
 
-      <div class="absolute bottom-5 left-1/2 -translate-x-1/2 grid gap-1.5 w-[90%]">
+      <div class="absolute bottom-5 left-1/2 -translate-x-1/2 grid gap-1 w-[90%]">
         <div class="h-[3px] bg-[#2ccb31] w-[40%] rounded-md"></div>
 
         <div
           class="font-['Times_New_Roman'] font-semibold uppercase text-[0.8rem]
           bg-white/70 backdrop-blur text-center py-1 px-2
-          rounded-md w-full">
-          <p class="text-lg font-bold">
+          rounded-md w-full" :class="{ 'text-[0.75rem]' : options.showUniName }">
+          <p class="text-lg font-bold" :class="{ 'text-[1rem]' : options.showUniName }">
             {{ user.name }}
           </p>
           <p>Department of computer science</p>
+          <p v-if="options.showUniName">Federal university of technology, Owerri</p>
           <p>
-            <span>{{ degree }}</span>
-            <span v-if="user.displayCGPA"> ({{ user.cgpa }}/5.0)</span>
+            <span v-if="options.showDegree">{{ degree }}</span>
+            <span v-if="options.showCGPA"> ({{ user.cgpa }}/5.0)</span>
           </p>
           <p class="italic">bachelor of technology
             (B.<span class="lowercase"><span class="uppercase">T</span>ech.</span>)
@@ -179,12 +193,45 @@ onMounted(() => {
         <div class="h-[3px] bg-[#ffe331] w-[40%] rounded-md justify-self-end"></div>
       </div>
     </div>
+
+    <hr class="my-4" />
+
+    <div>
+      <h1 class="font-semibold text-lg">Options</h1>
+      <div class="grid gap-1">
+        <div class="flex items-center gap-2">
+          <input v-model="options.showFutoLogo" type="checkbox" id="show-futo-logo">
+          <label for="show-futo-logo">Show FUTO logo</label>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input v-model="options.showTitansLogo" type="checkbox" id="show-titans-logo">
+          <label for="show-titans-logo">Show Titans logo</label>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input v-model="options.showDegree" type="checkbox" id="show-degree">
+          <label for="show-degree">Show Degree</label>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input v-model="options.showCGPA" type="checkbox" id="show-cgpa">
+          <label for="show-cgpa">Show CGPA</label>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input v-model="options.showUniName" type="checkbox" id="show-uni-name">
+          <label for="show-uni-name">Show university name</label>
+        </div>
+      </div>
+    </div>
+
   </section>
 </template>
 
 <style scoped>
 input {
-  @apply border border-gray-300 py-2 px-4 rounded w-full text-slate-600 text-lg transition-all;
+  @apply border border-gray-300 py-2 px-4 rounded  text-slate-600 text-lg transition-all;
   @apply hover:border-green-500 hover:shadow-sm;
 }
 
@@ -195,7 +242,7 @@ input {
   aspect-ratio: 1;
   border-radius: 50%;
   background: #25b09b;
-  --_m: 
+  --_m:
     conic-gradient(#0000 10%,#000),
     linear-gradient(#000 0 0) content-box;
   -webkit-mask: var(--_m);
