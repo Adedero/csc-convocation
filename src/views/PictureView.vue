@@ -17,7 +17,7 @@ const options = ref({
   showTitansLogo: true,
   showCGPA: true,
   showUniName: false,
-  showDegree: true,
+  showHonours: true,
 
   nameFontSize: 15,
   textFontSize: 12
@@ -185,7 +185,7 @@ onMounted(() => {
             <p>Department of computer science</p>
             <p v-if="options.showUniName">Federal university of technology, Owerri</p>
             <p>
-              <span v-if="options.showDegree">{{ degree }}</span>
+              <span v-if="options.showHonours">{{ degree }}</span>
               <span v-if="options.showCGPA"> ({{ user.cgpa }}/5.0)</span>
             </p>
             <p class="italic">bachelor of technology
@@ -213,7 +213,7 @@ onMounted(() => {
           <label for="text-font-size">Other text font size: {{ options.textFontSize }}px</label>
           <input v-model="options.textFontSize" type="range" min="5" max="36"  id="text-font-size">
         </div>
-        
+
         <div class="flex items-center gap-2">
           <input v-model="options.showFutoLogo" type="checkbox" id="show-futo-logo">
           <label for="show-futo-logo">Show FUTO logo</label>
@@ -225,8 +225,8 @@ onMounted(() => {
         </div>
 
         <div class="flex items-center gap-2">
-          <input v-model="options.showDegree" type="checkbox" id="show-degree">
-          <label for="show-degree">Show Degree</label>
+          <input v-model="options.showHonours" type="checkbox" id="show-honours">
+          <label for="show-honours">Show Honours</label>
         </div>
 
         <div class="flex items-center gap-2">
