@@ -17,7 +17,10 @@ const options = ref({
   showTitansLogo: true,
   showCGPA: true,
   showUniName: false,
-  showDegree: true
+  showDegree: true,
+
+  nameFontSize: 15,
+  textFontSize: 12
 });
 
 
@@ -172,22 +175,24 @@ onMounted(() => {
         <div class="h-[3px] bg-[#2ccb31] w-[40%] rounded-md"></div>
 
         <div
-          class="font-['Times_New_Roman'] font-semibold uppercase text-[0.8rem]
+          class="font-['Times_New_Roman'] font-semibold uppercase text-[12px]
           bg-white/70 backdrop-blur text-center py-1 px-2
-          rounded-md w-full" :class="{ 'text-[0.75rem]' : options.showUniName }">
-          <p class="text-lg font-bold" :class="{ 'text-[1rem]' : options.showUniName }">
+          rounded-md w-full">
+          <p class="font-bold" :style="{ fontSize: `${options.nameFontSize}px`}">
             {{ user.name }}
           </p>
-          <p>Department of computer science</p>
-          <p v-if="options.showUniName">Federal university of technology, Owerri</p>
-          <p>
-            <span v-if="options.showDegree">{{ degree }}</span>
-            <span v-if="options.showCGPA"> ({{ user.cgpa }}/5.0)</span>
-          </p>
-          <p class="italic">bachelor of technology
-            (B.<span class="lowercase"><span class="uppercase">T</span>ech.</span>)
-          </p>
-          <p class="italic">Class of 2022/2023</p>
+          <div :style="{ fontSize: `${options.textFontSize}px`}">
+            <p>Department of computer science</p>
+            <p v-if="options.showUniName">Federal university of technology, Owerri</p>
+            <p>
+              <span v-if="options.showDegree">{{ degree }}</span>
+              <span v-if="options.showCGPA"> ({{ user.cgpa }}/5.0)</span>
+            </p>
+            <p class="italic">bachelor of technology
+              (B.<span class="lowercase"><span class="uppercase">T</span>ech.</span>)
+            </p>
+            <p class="italic">Class of 2022/2023</p>
+          </div>
         </div>
 
         <div class="h-[3px] bg-[#ffe331] w-[40%] rounded-md justify-self-end"></div>
@@ -199,6 +204,21 @@ onMounted(() => {
     <div>
       <h1 class="font-semibold text-lg">Options</h1>
       <div class="grid gap-1">
+        <div class="grid">
+          <label for="name-font-size">Name font size: {{ options.nameFontSize }}px</label>
+          <input v-model="options.nameFontSize" type="range" min="5" max="36"  id="name-font-size">
+        </div>
+
+        <div class="grid">
+          <label for="text-font-size">Other text font size: {{ options.textFontSize }}px</label>
+          <input v-model="options.textFontSize" type="range" min="5" max="36"  id="text-font-size">
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input v-model="options.showFutoLogo" type="checkbox" id="show-futo-logo">
+          <label for="show-futo-logo">Show FUTO logo</label>
+        </div>
+
         <div class="flex items-center gap-2">
           <input v-model="options.showFutoLogo" type="checkbox" id="show-futo-logo">
           <label for="show-futo-logo">Show FUTO logo</label>
