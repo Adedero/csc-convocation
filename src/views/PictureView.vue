@@ -35,14 +35,24 @@ const degree = computed(() => {
 });
 
 const loading = ref(false);
+const err = ref(false);
 const file = ref(null);
 const fileUrl = ref(null);
 
 const onInput = (event) => {
+  err.value = false;
   loading.value = true;
   fileUrl.value = null;
   const files = event.target.files;
   file.value = files[0];
+
+  const isImage = file.value.type.includes('image');
+
+  if (!isImage) {
+    err.value = true;
+    loading.value = false;
+    return;
+  }
 
   const reader = new FileReader();
   reader.onload = () => {
@@ -105,7 +115,10 @@ onMounted(() => {
 
     <div class="grid gap-1">
       <label for="picture">Upload your photo</label>
-      <input @input="onInput" id="picture" type="file" />
+      <input @input="onInput" id="picture" type="file" accept="image/*" />
+      <small v-if="err" class="text-sm text-red-500">
+        File must be an image.
+      </small>
     </div>
     <hr class="my-4" />
 
