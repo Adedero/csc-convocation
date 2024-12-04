@@ -246,7 +246,7 @@ onMounted(() => {
 
 <style scoped>
 input {
-  @apply border border-gray-300 py-2 px-4 rounded  text-slate-600 text-lg transition-all;
+  @apply border border-gray-300 py-2 px-4 rounded  text-slate-600 transition-all;
   @apply hover:border-green-500 hover:shadow-sm;
 }
 
